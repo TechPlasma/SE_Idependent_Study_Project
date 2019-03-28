@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import StoryCard from '@/components/StoryCard.vue'
+const StoryCard = () => import('@/components/StoryCard.vue');
 export default {
   name: "About",
   components: {

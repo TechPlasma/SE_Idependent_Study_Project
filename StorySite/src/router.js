@@ -1,11 +1,11 @@
 import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
-import About from './views/About';
-import AllStories from './views/AllStories.vue';
-import SubmitStory from './views/SubmitStory.vue';
-import Story from './views/Story.vue';
-import Error404 from './views/404.vue';
+import Router from 'vue-router'; 
+const Home = () => import('./views/Home.vue');
+const About = () => import('./views/About');
+const AllStories = () => import('./views/AllStories.vue');
+const SubmitStory = () => import('./views/SubmitStory.vue');
+const Story = () => import('./views/Story.vue');
+const Error404 = () => import('./views/404.vue');
 
 Vue.use(Router)
 

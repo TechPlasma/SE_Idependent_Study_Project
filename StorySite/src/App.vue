@@ -1,19 +1,8 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      
-      <v-toolbar-title class="headline text-uppercase">
-        <router-link to="/" class="clearLink">
-          <span>USER</span>
-          <span class="font-weight-light">STORIES</span>
-        </router-link>
-      </v-toolbar-title>
+    <Toolbar/>
 
-      <v-spacer></v-spacer>
-
-      <NavLinks/>
-
-    </v-toolbar>
+    <Drawer />
 
     <v-content>
       <router-view></router-view>
@@ -22,12 +11,13 @@
 </template>
 
 <script>
-import NavLinks from "./components/NavLinks.vue";
-
+// import Drawer from './components/layout/Drawer.vue';
 export default {
   name: 'App',
   components: {
-    NavLinks
+    Toolbar: () => import(`@/components/layout/Toolbar.vue`),
+    Drawer: () => import(`@/components/layout/Drawer.vue`)
+    // Drawer
   },
   data () {
     return {
