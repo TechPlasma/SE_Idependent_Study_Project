@@ -1,12 +1,10 @@
 <template>
-  <v-app>
-    <Toolbar/>
+  <v-app >
+    <Layout-Toolbar/>
 
-    <Drawer />
+    <Layout-Drawer />
 
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <Layout-View />
   </v-app>
 </template>
 
@@ -15,8 +13,9 @@
 export default {
   name: 'App',
   components: {
-    Toolbar: () => import(`@/components/layout/Toolbar.vue`),
-    Drawer: () => import(`@/components/layout/Drawer.vue`)
+    LayoutToolbar: () => import(`@/components/layout/Toolbar.vue`),
+    LayoutDrawer: () => import(`@/components/layout/Drawer.vue`),
+    LayoutView: () => import(`@/components/layout/View.vue`)
     // Drawer
   },
   data () {

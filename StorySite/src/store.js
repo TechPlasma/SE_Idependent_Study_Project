@@ -5,7 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    modules:{
+
+    },
     drawer: false,
+    apiurl: 'localhost',
+    nodeServer: '',
+    pythonServer: '',
+    apiServer: true,
     pages: [
       // {
       //   text: 'Home',
@@ -28,11 +35,20 @@ export default new Vuex.Store({
   getters: {
     pages: (state) => {
       return state.pages;
+    },
+    apiServer: state => {
+      if(state.apiServer){
+        return state.nodeServer;
+      }else {
+        return state.pythonServer;
+      }
     }
   },
   mutations: {
     setDrawer: (state, payload) => (state.drawer = payload),
-    toggleDrawer: state=> (state.drawer = !state.drawer)
+    toggleDrawer: state=> (state.drawer = !state.drawer),
+    changeAPIServer: (state,value) => {state.apiServer = value},
+    changeAPIURL:(state, value) => {state.apiurl = value}
   },
   actions: {
 

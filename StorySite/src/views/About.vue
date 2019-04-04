@@ -1,23 +1,19 @@
 <template>
   <v-container>
     <v-layout  justify-center column text-xs-center wrap>
-      <h1 class="aqua">This is an about page</h1>
+      <h1 class="aqua">About</h1>
       <p>
-        Hello World.
+        This is a simple project made for the modern world.
       </p>
-      <div class="gridview">
-        <story-card v-for="i in range(5)" :key="i" :storydata="storydatatemp"/>
-      </div>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-const StoryCard = () => import('@/components/StoryCard.vue');
 export default {
   name: "About",
   components: {
-    StoryCard
+    
   },
   data(){
     return {

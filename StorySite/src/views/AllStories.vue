@@ -7,6 +7,9 @@
             label="Search"
             single-line
             outline
+            clearable
+            append-icon="search"
+            @click:append="search"
           ></v-text-field>
         </v-flex>
       <div class="gridview">
@@ -25,14 +28,20 @@ export default {
   data(){
     return {
       storydatatemp: {
-        title: "Story Name",
         id: 3,
+        author: "Author name",
+        title: "Title of Story",
+        createdDate: "2019-04-02",
+        summary: "This is the story of a girl. Who cried a river an drown the whole world. But while she looks so sad in photographs. I absolutely love her. when she smiles",
         tags: ['Story','Tags','Here']
       },
       range(value){
         return [...Array(value).keys()]
       }
     }
+  },
+  methods: {
+    search:() => {}
   }
 }
 </script>
@@ -42,7 +51,7 @@ export default {
 .gridview{
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
 }
 
 .aqua{
