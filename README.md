@@ -4,11 +4,11 @@
 - StorySite
     - Front End
     - VueJS
-- PythonBack
+- StoryPython
     - Back End 1
     - Python
-- NodeBack
+- StoryNode
     - Back End 2
     - NodeJS
-- Database
+- StoryDB
     - MySQL
