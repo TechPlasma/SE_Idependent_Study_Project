@@ -1,0 +1,2 @@
+# StoryDB
+Made with MySQL.

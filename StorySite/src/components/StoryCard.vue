@@ -56,7 +56,6 @@ export default {
 <style scoped>
 .rounded-card{
     border-radius: 1rem;
-    /* max-width: 560px; */
 }
 .spacedOut {
     margin: 5px;

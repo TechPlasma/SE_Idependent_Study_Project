@@ -1,20 +1,22 @@
 <template>
   <v-container>
-    <v-layout  justify-center column text-xs-center wrap>
-      <h1 class="aqua">All Stories</h1>
-      <v-flex xs12 sm6>
-          <v-text-field
-            label="Search"
-            single-line
-            outline
-            clearable
-            append-icon="search"
-            @click:append="search"
-          ></v-text-field>
-        </v-flex>
-      <div class="gridview">
-        <story-card v-for="i in range(100)" :key="i" :storydata="storydatatemp"/>
-      </div>
+    <v-layout  justify-center text-xs-center wrap>
+      <v-flex xs12>
+        <h1 class="aqua">All Stories</h1>
+      </v-flex>
+      <v-flex xs12>
+        <v-text-field
+          label="Search"
+          single-line
+          outline
+          clearable
+          append-icon="search"
+          @click:append="search"
+        ></v-text-field>
+      </v-flex>
+      <v-flex class="spaceOut" sm12 md6 lg4 v-for="i in range(100)" :key="i">
+        <story-card :storydata="storydatatemp"/>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -48,13 +50,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.gridview{
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
-}
-
-.aqua{
-  color: $primary;
-}
+  .aqua{
+    color: $primary;
+  }
+  .spaceOut{
+    padding: .5rem;
+  }
 </style>

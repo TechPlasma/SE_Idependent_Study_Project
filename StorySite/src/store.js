@@ -10,9 +10,9 @@ export default new Vuex.Store({
     },
     drawer: false,
     apiurl: 'localhost',
-    nodeServer: '',
-    pythonServer: '',
-    apiServer: true,
+    nodeServer: '5000',
+    pythonServer: '6000',
+    apiServerMode: true,
     pages: [
       // {
       //   text: 'Home',
@@ -37,17 +37,20 @@ export default new Vuex.Store({
       return state.pages;
     },
     apiServer: state => {
-      if(state.apiServer){
+      if(state.apiServerMode){
         return state.nodeServer;
       }else {
         return state.pythonServer;
       }
+    },
+    apiURL: (state,getters) => {
+      return `http://${state.apiurl}:${getters.apiServer}/api`
     }
   },
   mutations: {
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state=> (state.drawer = !state.drawer),
-    changeAPIServer: (state,value) => {state.apiServer = value},
+    changeAPIServer: (state,value) => {state.apiServerMode = value},
     changeAPIURL:(state, value) => {state.apiurl = value}
   },
   actions: {

@@ -47,7 +47,7 @@ export default {
         ...mapGetters(['pages']),
         apiSwitcher: {
             get() {
-                return this.$store.state.apiServer;
+                return this.$store.state.apiServerMode;
             },
             set(value) {
                 this.$store.commit('changeAPIServer',value);

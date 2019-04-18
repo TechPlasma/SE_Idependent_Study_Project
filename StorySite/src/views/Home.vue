@@ -1,17 +1,24 @@
 <template>
   <v-container>
-    <v-layout  justify-center column text-xs-center wrap>
-      <br><br>
-      <h1 class="aqua">Latest TEN Stories</h1>
-      <br><br>
-      <div class="gridview">
-        <story-card v-for="i in range(10)" :key="i" :storydata="storydatatemp"/>
-      </div>
+    <v-layout justify-space-around text-xs-center wrap>
+      <v-flex xs12>
+        <br><br>
+        <h1 class="aqua">Latest TEN Stories</h1>
+        <br><br>
+      </v-flex>
+      <v-flex class="spaceOut" sm12 md6 lg4 v-for="story in storyArray" :key="story.id">
+        <story-card :storydata="story"/>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios';
+import{
+    mapGetters
+} from 'vuex';
+
 export default {
   name: "Home",
   components: {
@@ -29,21 +36,39 @@ export default {
       },
       range(value){
         return [...Array(value).keys()]
-      }
+      },
+      storyArray:[]
     }
+  },
+  computed:{
+    ...mapGetters(['apiURL']),
+  },
+  created() {
+    // eslint-disable-next-line
+    console.log(`Loading from link: ${this.apiURL}/stories`)
+    
+    axios.get(`${this.apiURL}/stories`,{
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+    .then(res => {
+      this.storyArray = res.data;
+      // eslint-disable-next-line
+      console.log(res.data);
+    })
+    // eslint-disable-next-line
+    .catch(err => console.log(err))
   }
 }
 </script>
 
 
 <style lang="scss" scoped>
-.gridview{
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
-}
-
-.aqua{
-  color: $primary;
-}
+  .aqua{
+    color: $primary;
+  }
+  .spaceOut{
+    padding: .5rem;
+  }
 </style>

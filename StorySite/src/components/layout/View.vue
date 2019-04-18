@@ -9,11 +9,4 @@ export default {
 </script>
 
 <style>
-.mainGrid{
-    height: 100vh;
-    width: 100vw;
-    display: grid;
-    overflow: auto;
-}
-
 </style>
