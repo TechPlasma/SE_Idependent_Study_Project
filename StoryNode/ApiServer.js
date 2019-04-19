@@ -2,6 +2,30 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
+
+const Sequelize = require('sequelize');
+
+const storiesDB = new Sequelize('storydb','root','password',{
+    host: 'localhost',
+    dialect: 'mysql'
+});
+
+storiesDB.authenticate()
+.then(() => {
+    console.log('Connection has been established with StoriesDB.');
+})
+.catch(err => {
+    console.error('Unable to connect to the database StoriesDB:',err)
+});
+
+// // Quick example
+// storiesDB.query("SELECT * FROM stories").then(stories => {
+//     console.log(stories[0]);
+// });
+
+
+
+// Create Express Server
 const app = express();
 
 // Body Parser Middleware

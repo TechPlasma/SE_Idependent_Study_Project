@@ -14,14 +14,19 @@
           @click:append="search"
         ></v-text-field>
       </v-flex>
-      <v-flex class="spaceOut" sm12 md6 lg4 v-for="i in range(100)" :key="i">
-        <story-card :storydata="storydatatemp"/>
+      <v-flex class="spaceOut" sm12 md6 lg4 v-for="story in storyArray" :key="story.id">
+        <story-card :storydata="story"/>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios';
+import{
+    mapGetters
+} from 'vuex';
+
 export default {
   name: "Home",
   components: {
@@ -39,11 +44,33 @@ export default {
       },
       range(value){
         return [...Array(value).keys()]
-      }
+      },
+      storyArray:[]
     }
   },
   methods: {
     search:() => {}
+  },
+  computed:{
+    ...mapGetters(['apiURL']),
+  },
+  created() {
+    let query = `${this.apiURL}/stories?hello=goodbye&-world`;
+    // eslint-disable-next-line
+    console.log(`Loading from link: ${query}`)
+    
+    axios.get(`${query}`,{
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+    .then(res => {
+      this.storyArray = res.data;
+      // eslint-disable-next-line
+      console.log(res.data);
+    })
+    // eslint-disable-next-line
+    .catch(err => console.log(err))
   }
 }
 </script>

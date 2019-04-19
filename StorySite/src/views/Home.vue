@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout justify-space-around text-xs-center wrap>
+    <v-layout justify-center text-xs-center wrap>
       <v-flex xs12>
         <br><br>
         <h1 class="aqua">Latest TEN Stories</h1>

@@ -13,7 +13,7 @@
           <span class="grey--text tl">{{storydata.author}}</span>
         </div>
         <v-spacer></v-spacer>
-        {{storydata.createdDate}}
+        {{storydata.createdDate | moment('YYYY-MM-DD')}}
         
       </v-card-title>
       <v-card-text>
