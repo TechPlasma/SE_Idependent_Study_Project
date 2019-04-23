@@ -17,35 +17,64 @@ storiesDB.authenticate()
     console.error('Unable to connect to the database StoriesDB:',err)
 });
 
-// Gets All Stories
-router.get('/',(req,res) => {
-    console.log(req.query);
 
-    // let storyReturn;
-    // Quick example
-    storiesDB.query("SELECT * FROM stories").then(stories => {
-        // console.log(stories[0][1]);
-        stories[0].forEach(element => {
-            // console.log(`Editing Story ${element.id} tags`);
+const Stories = storiesDB.define('stories',{
+    id:{type: Sequelize.INTEGER,allowNull: false,primaryKey:true,autoIncrement:true},
+    title: {type: Sequelize.STRING,allowNull:false},
+    author: {type: Sequelize.STRING,allowNull:false},
+    createdDate: {type:Sequelize.DATE,allowNull:true},
+    summary: {type:Sequelize.TEXT,allowNull:false},
+    tags: {type:Sequelize.TEXT,allowNull:false}
+},{
+    timestamps: false
+});
+
+
+// Get All Stories
+router.get('/',(req,res) => {
+    req.query.limit = parseInt(req.query.limit);
+    console.log("Query: ",req.query);
+
+    Stories.findAll(req.query).then( storyList => {
+        storyList.forEach(element => {
             element.tags = element.tags.split(',');
-        });
-        // console.log(stories[0]);
-        // storyReturn = stories[0];
-        res.json(stories[0]);
+        })
+
+        res.json(storyList);
     });
-    // res.json(storyReturn);
 });
 
 // Get Story By ID
 router.get('/:id', (req,res) => {
-    const found = fakeStories.some( fakeStory => fakeStory.id === parseInt(req.params.id));
+    Stories.findAll({where:{id:req.params.id}}).then( storyList => {
+        if(storyList.length>0){
+            storyList.forEach(element => {
+                element.tags = element.tags.split(',');
+            });
 
-    if(found) {
-        res.json(fakeStories.filter(fakeStory => fakeStory.id === parseInt(req.params.id)));
-    }else {
-        res.status(400).json({msg: `No story found with the id of ${req.params.id}`});
+            res.json(storyList[0]);
+        }else{
+            res.status(400).json({msg: `No story found with the id of ${req.params.id}`});
+        }
+    });
+});
+
+// Post Story
+router.post('/',(req,res) => {
+    const newStory = {
+        title: req.body.story.title,
+        author: req.body.story.author,
+        summary: req.body.story.summary,
+        tags: req.body.story.tags
     }
-})
+
+    console.log("POST DETECTED");
+    console.log(req.body);
+
+    Stories.create(newStory).then(storyEntry => {
+        res.json(storyEntry);
+    });
+});
 
 
 // Exports the Router to be used as the API URL

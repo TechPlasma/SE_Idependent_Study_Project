@@ -9,7 +9,7 @@
             <v-spacer></v-spacer>
           </v-card-title>
           <v-card-text>
-            <span v-html="storyBody">
+            <span v-html="storyBody.story_text">
               Story Content Here.
             </span>
           </v-card-text>
@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import{
-    mapGetters
+    mapGetters,
+    mapActions
 } from 'vuex';
 
 export default {
@@ -48,41 +48,22 @@ export default {
       storyBody: ''
     }
   },
+  methods: {
+    ...mapActions(['fetchStoryID','fetchStoryBodyID'])
+  },
   computed:{
     ...mapGetters(['apiURL']),
   },
   created() {
-    // eslint-disable-next-line
-    console.log(`Loading from link: ${this.apiURL}/stories/${this.$route.params.id}`)
-    
-    //Get Story Data
-    axios.get(`${this.apiURL}/stories/${this.$route.params.id}`,{
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-    .then(res => {
-      this.story = res.data[0];
-      // eslint-disable-next-line
-      console.log(res.data);
-    })
-    // eslint-disable-next-line
-    .catch(err => console.log(err))
+    this.fetchStoryID(this.$route.params.id).then(res => {
+      this.story = res;
+    });
 
-    // Get Story Text
-    axios.get(`${this.apiURL}/storyText/${this.$route.params.id}`,{
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-    .then(res => {
-      this.storyBody = (res.data[0]).storyText;
-      // eslint-disable-next-line
-      console.log(res.data);
-    })
-    // eslint-disable-next-line
-    .catch(err => console.log(err))
+    this.fetchStoryBodyID(this.$route.params.id).then(res => {
+      this.storyBody = res;
+    });
   }
+
 }
 </script>
 

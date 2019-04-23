@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import stories from './store/stories';
 
+// Load Vuex
 Vue.use(Vuex)
 
+// Create Store
 export default new Vuex.Store({
+  modules: {
+    stories
+  },
   state: {
-    modules:{
-
-    },
     drawer: false,
     apiurl: 'localhost',
     nodeServer: '5000',

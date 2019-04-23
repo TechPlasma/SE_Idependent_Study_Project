@@ -3,20 +3,20 @@ const path = require('path');
 const cors = require('cors');
 
 
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 
-const storiesDB = new Sequelize('storydb','root','password',{
-    host: 'localhost',
-    dialect: 'mysql'
-});
+// const storiesDB = new Sequelize('storydb','root','password',{
+//     host: 'localhost',
+//     dialect: 'mysql'
+// });
 
-storiesDB.authenticate()
-.then(() => {
-    console.log('Connection has been established with StoriesDB.');
-})
-.catch(err => {
-    console.error('Unable to connect to the database StoriesDB:',err)
-});
+// storiesDB.authenticate()
+// .then(() => {
+//     console.log('Connection has been established with StoriesDB.');
+// })
+// .catch(err => {
+//     console.error('Unable to connect to the database StoriesDB:',err)
+// });
 
 // // Quick example
 // storiesDB.query("SELECT * FROM stories").then(stories => {
@@ -37,7 +37,7 @@ app.use(cors({origin:'*'}));
 
 // API Routes
 app.use('/api/stories',require('./routes/api/stories'));
-app.use('/api/storyText', require('./routes/api/storyText'));
+app.use('/api/storytext', require('./routes/api/storyText'));
 
 
 

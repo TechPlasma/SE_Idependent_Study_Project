@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import{
-    mapGetters
+    mapActions
 } from 'vuex';
 
 export default {
@@ -40,25 +40,34 @@ export default {
       storyArray:[]
     }
   },
+  methods: {
+    ...mapActions(['fetchStories','test']),
+  },
   computed:{
-    ...mapGetters(['apiURL']),
+
   },
   created() {
-    // eslint-disable-next-line
-    console.log(`Loading from link: ${this.apiURL}/stories`)
+    // // eslint-disable-next-line
+    // console.log(`Loading from link: ${this.apiURL}/stories`)
     
-    axios.get(`${this.apiURL}/stories`,{
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-    .then(res => {
-      this.storyArray = res.data;
-      // eslint-disable-next-line
-      console.log(res.data);
-    })
-    // eslint-disable-next-line
-    .catch(err => console.log(err))
+    // axios.get(`${this.apiURL}/stories?limit=10`,{
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*'
+    //   }
+    // })
+    // .then(res => {
+    //   this.storyArray = res.data;
+    //   // eslint-disable-next-line
+    //   console.log(res.data);
+    // })
+    // // eslint-disable-next-line
+    // .catch(err => console.log(err))
+    
+
+    this.fetchStories("?limit=10").then(res => {
+        this.storyArray = res;
+    });
+    // this.test();
   }
 }
 </script>

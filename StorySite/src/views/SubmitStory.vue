@@ -2,7 +2,7 @@
   <v-container>
     <v-layout  justify-center text-xs-center wrap>
       <v-flex sm12>
-        <v-btn color="primary">Submit Story</v-btn>
+        <v-btn color="primary" @click="postStoryAndData()">Submit Story</v-btn>
       </v-flex>
       <v-flex sm12 md8>
         <v-text-field label="Title" outline v-model="storyData.title"></v-text-field>
@@ -22,6 +22,10 @@
 
 <script>
 import {VueEditor} from 'vue2-editor';
+import{
+    mapActions
+} from 'vuex';
+
 export default {
   name: "AllStories",
   components: {
@@ -30,14 +34,42 @@ export default {
   data(){
     return {
       storyData: {
-        id: 3,
         author: "",
         title: "",
-        createdDate: "",
         summary: "This is the story of a girl. Who cried a river an drown the whole world. But while she looks so sad in photographs. I absolutely love her. when she smiles",
         tags: '',
         body: '<h1>Some Initial Content</h1>'
       }
+    }
+  },
+  methods:{
+    ...mapActions(['postStory','postStoryBody']),
+    postStoryAndData(){
+      // eslint-disable-next-line
+      console.log("Posting Story");
+      let newStory = {
+        author: this.storyData.author,
+        title: this.storyData.title,
+        summary: this.storyData.summary,
+        tags: this.storyData.tags
+      }
+
+      let newStoryBody = {
+        story_text: this.storyData.body,
+        id: null
+      }
+
+      this.postStory(newStory).then(res => {
+        // eslint-disable-next-line
+        console.log(`Response: `,res);
+        newStoryBody.id = res.id;
+        this.postStoryBody(newStoryBody).then(res => {
+          // eslint-disable-next-line
+          console.log(`Response: `,res);
+        })
+      })
+
+
     }
   }
 }

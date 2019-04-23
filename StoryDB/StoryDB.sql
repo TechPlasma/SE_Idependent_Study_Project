@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `stories` (
   `summary` text NOT NULL,
   `tags` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3;
 
 -- Dumping data for table storydb.stories: ~2 rows (approximately)
 /*!40000 ALTER TABLE `stories` DISABLE KEYS */;
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `story_text` (
   `story_text` longtext NOT NULL,
   KEY `Foriegn` (`id`),
   CONSTRAINT `FK_Story_Text_stories` FOREIGN KEY (`id`) REFERENCES `stories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=INNODB;
 
 -- Dumping data for table storydb.story_text: ~0 rows (approximately)
 /*!40000 ALTER TABLE `story_text` DISABLE KEYS */;
