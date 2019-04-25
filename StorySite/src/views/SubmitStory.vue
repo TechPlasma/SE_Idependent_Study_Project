@@ -54,7 +54,7 @@ export default {
         tags: this.storyData.tags
       }
 
-      let newStoryBody = {
+      let story = {
         story_text: this.storyData.body,
         id: null
       }
@@ -62,8 +62,8 @@ export default {
       this.postStory(newStory).then(res => {
         // eslint-disable-next-line
         console.log(`Response: `,res);
-        newStoryBody.id = res.id;
-        this.postStoryBody(newStoryBody).then(res => {
+        story.id = res.id;
+        this.postStoryBody(story).then(res => {
           // eslint-disable-next-line
           console.log(`Response: `,res);
         })

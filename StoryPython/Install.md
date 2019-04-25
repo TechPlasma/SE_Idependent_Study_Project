@@ -8,4 +8,8 @@
 >> pip3 install connexion[swagger-ui]
 ^^ If above doesnt work use VV
 >> pip3 install swagger-ui-bundle
+>> pip3 install flask_cors
+>> pip3 install sqlalchemy
+>> sudo apt-get install python-mysqldb
+>> pip3 install marshmallow
 ```

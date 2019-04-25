@@ -23,7 +23,7 @@ paths:
         - name: limit
           in: query
           type: integer
-          description: Number of stories to return
+          description: integer of stories to return
           required: false
       responses:
         200:
@@ -33,7 +33,7 @@ paths:
             items:
               properties:
                 id:
-                  type: number
+                  type: integer
                 title:
                   type: string
                 author:
@@ -73,7 +73,7 @@ paths:
             type: object
             properties:
               id:
-                type: number
+                type: integer
               title:
                 type: string
               author:
@@ -84,5 +84,87 @@ paths:
                 type: string
               tags:
                 type: string
-
-  # /storytext:
+  /stories/{id}:
+    get:
+      operationId: stories.read_one
+      tags:
+        - stories
+      summary: Read one story from the stories DB
+      description: Read one story from the stories DB
+      parameters:
+        - name: id
+          in: path
+          description: id of the story to retrieve
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully created stories list operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              title:
+                type: string
+              author:
+                type: string
+              createdDate:
+                type: string
+              summary:
+                type: string
+              tags:
+                type: string
+                
+  /storytext:
+    post:
+      operationId: storytext.create
+      tags:
+        - storytext
+      summary: Add the story text to the DB
+      description: Add the story text to the DB
+      parameters:
+        - name: storytext
+          in: body
+          description: Storytext to add to DB
+          required: True
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              story_text:
+                type: string
+      responses:
+        200:
+          description: Successfully created stories list operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              story_text:
+                type: string
+  /storytext/{id}:
+    get:
+      operationId: storytext.read_one
+      tags:
+        - storytext
+      summary: Retrieve one of the stories text from the DB
+      description: Retrieve one of the stories text from the DB
+      parameters:
+        - name: id
+          in: path
+          description: id of the story text to retrieve
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Retrieved the story text from the DB
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              story_text:
+                type: string

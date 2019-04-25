@@ -12,9 +12,9 @@ export default new Vuex.Store({
   },
   state: {
     drawer: false,
-    apiurl: 'localhost',
+    apiurl: '76.185.130.54',
     nodeServer: '5000',
-    pythonServer: '6000',
+    pythonServer: '7000',
     apiServerMode: true,
     pages: [
       // {

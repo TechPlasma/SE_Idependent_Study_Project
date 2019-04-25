@@ -55,7 +55,7 @@ export default {
     ...mapGetters(['apiURL']),
   },
   created() {
-    let query = `${this.apiURL}/stories?hello=goodbye&-world`;
+    let query = `${this.apiURL}/stories?limit=1000`;
     // eslint-disable-next-line
     console.log(`Loading from link: ${query}`)
     
