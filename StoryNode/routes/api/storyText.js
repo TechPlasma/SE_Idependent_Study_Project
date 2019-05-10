@@ -4,8 +4,13 @@ const router = express.Router();
 const fakeStoryTexts = require('../../db/fakeStoryText');
 const Sequelize = require('sequelize');
 
-const storiesDB = new Sequelize('storydb', 'root', 'password', {
-    host: 'localhost',
+// const storiesDB = new Sequelize('storydb', 'root', 'password', {
+//     host: 'localhost',
+//     dialect: 'mysql'
+// });
+
+const storiesDB = new Sequelize('techplasma', 'techplasma', 'KOGoQzl43dFy9Rxj', {
+    host: 'easel2.fulgentcorp.com',
     dialect: 'mysql'
 });
 
@@ -69,14 +74,14 @@ router.get('/:id', (req, res) => {
 // Post Story Text
 router.post('/', (req, res) => {
     const newStoryText = {
-        id: req.body.storyText.id,
-        story_text: req.body.storyText.story_text
+        id: req.body.storytext.id,
+        story_text: req.body.storytext.story_text
     }
 
-    console.log("POST DETECTED");
-    console.log(req.body);
+    console.log("POST DETECTED", req.body);
 
     StoryBodies.create(newStoryText).then(newBodyEntry => {
+        console.log("Sending Back",newBodyEntry);
         res.json(newBodyEntry);
     })
 });

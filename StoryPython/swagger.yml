@@ -23,8 +23,8 @@ paths:
         - name: limit
           in: query
           type: integer
-          description: integer of stories to return
           required: false
+          description: integer of stories to return
       responses:
         200:
           description: Successfully read stories list operation

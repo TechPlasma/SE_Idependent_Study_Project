@@ -42,6 +42,11 @@ CREATE TABLE IF NOT EXISTS `story_text` (
   CONSTRAINT `FK_Story_Text_stories` FOREIGN KEY (`id`) REFERENCES `stories` (`id`)
 ) ENGINE=INNODB;
 
+
+INSERT INTO `story_text` (`id`, `story_text`) VALUES
+	(1, 'The Way of Kings Story Text goes here'),
+	(2, 'Words of Radiance Story Text goes Here');
+
 -- Dumping data for table storydb.story_text: ~0 rows (approximately)
 /*!40000 ALTER TABLE `story_text` DISABLE KEYS */;
 /*!40000 ALTER TABLE `story_text` ENABLE KEYS */;

@@ -1,23 +1,43 @@
 <template>
-  <v-container>
-    <v-layout  justify-center text-xs-center wrap>
-      <v-flex sm12>
-        <v-btn color="primary" @click="postStoryAndData()">Submit Story</v-btn>
-      </v-flex>
-      <v-flex sm12 md8>
-        <v-text-field label="Title" outline v-model="storyData.title"></v-text-field>
-      </v-flex>
-      <v-flex sm12 md4>
-        <v-text-field label="Author Name" outline v-model="storyData.author"></v-text-field>
-      </v-flex>
-      <v-flex sm12>
+  <div>    
+    <v-flex>
+      <v-alert
+          :value="readyToSubmit"
+          :type="submitMode"
+          id="Alert"
+      >
+        <div>
+          Would you like to submit the story?
+          <v-btn color="primary" @click="postStoryAndData()">Submit Story</v-btn>
+
+        </div>
         
-        <v-textarea label="Tags" placeholder="Separate tags with commas" outline v-model="storyData.tags"></v-textarea>
-        <v-textarea label="Summary" placeholder="Story Summary" outline v-model="storyData.summary"></v-textarea>
-        <vue-editor v-model="storyData.body"></vue-editor>
-      </v-flex>
-    </v-layout>
-  </v-container>
+      </v-alert>
+    </v-flex>
+    <v-container class="scroll-y">
+      <v-layout wrap overflow="auto">
+        <v-flex sm12 md8>
+          <v-text-field label="Title" outline v-model="storyData.title"></v-text-field>
+        </v-flex>
+        <v-flex sm12 md4>
+          <v-text-field label="Author Name" outline v-model="storyData.author"></v-text-field>
+        </v-flex>
+        <v-flex sm12>
+          <v-textarea label="Summary" placeholder="Story Summary" outline v-model="storyData.summary"></v-textarea>
+          <v-textarea label="Tags" placeholder="Separate tags with commas" outline v-model="storyData.tags"></v-textarea>
+          <vue-editor v-model="storyData.body"></vue-editor>
+        </v-flex>
+        
+      </v-layout>
+    </v-container>
+    
+    <v-btn fab color="warning" fixed right bottom
+      v-if="readyToSubmit"
+      @click="$vuetify.goTo(target,scrollOptions)"
+    >
+      <v-icon>expand_less</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -33,13 +53,21 @@ export default {
   },
   data(){
     return {
+      submitStory: true,
+      submitMode:"warning",
       storyData: {
-        author: "",
-        title: "",
-        summary: "This is the story of a girl. Who cried a river an drown the whole world. But while she looks so sad in photographs. I absolutely love her. when she smiles",
+        author: '',
+        title: '',
+        summary: '',
         tags: '',
-        body: '<h1>Some Initial Content</h1>'
-      }
+        body: '',
+      },
+      scrollOptions:{
+        duration: 300,
+        offset: 0,
+        easing: 'easeInOutCubic'
+      },
+      target: "#Alert"
     }
   },
   methods:{
@@ -66,10 +94,20 @@ export default {
         this.postStoryBody(story).then(res => {
           // eslint-disable-next-line
           console.log(`Response: `,res);
+          this.$router.push({ path: `/story/${story.id}` }) 
         })
       })
 
 
+    }
+  },
+  computed:{
+    readyToSubmit() {
+      if(this.storyData.author != '' && this.storyData.title != '' && this.storyData.summary != '' && this.storyData.tags != '' && this.storyData.body != ''){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
 }
@@ -77,11 +115,6 @@ export default {
 
 
 <style lang="scss" scoped>
-.gridview{
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
 
 .aqua{
   color: $primary;

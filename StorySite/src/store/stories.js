@@ -17,6 +17,11 @@ const actions = {
                 'Access-Control-Allow-Origin': '*'
             }
         });
+
+        response.data.forEach((story) => {
+            story.tags = story.tags.split(',');
+        });
+
         return response.data;
     },
     async fetchStoryID({ getters }, id) {
@@ -27,6 +32,9 @@ const actions = {
                 'Access-Control-Allow-Origin': '*'
             }
         });
+
+        response.data.tags = response.data.tags.split(',');
+
         return response.data;
     },
     async fetchStoryBodyID({getters},id){
@@ -39,7 +47,10 @@ const actions = {
         });
         return response.data;
     },
-    async postStory({getters},story) {
+    async postStory({ getters }, story) {
+        // eslint-disable-next-line
+        console.log(`StoryData: `, story);
+
         const response = await axios.post(`${getters.apiURL}/stories`, { story },{
             headers: {
                 'Access-Control-Allow-Origin': '*'
@@ -51,8 +62,11 @@ const actions = {
 
         return response.data;
     },
-    async postStoryBody({ getters }, storyText) {
-        const response = await axios.post(`${getters.apiURL}/storytext`, { storyText }, {
+    async postStoryBody({ getters }, storytext) {
+        // eslint-disable-next-line
+        console.log(`StoryTextData: `, storytext);
+
+        const response = await axios.post(`${getters.apiURL}/storytext`, { storytext }, {
             headers: {
                 'Access-Control-Allow-Origin': '*'
             }

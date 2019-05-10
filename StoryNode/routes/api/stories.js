@@ -4,8 +4,13 @@ const router = express.Router();
 const fakeStories = require('../../db/fakeStories');
 const Sequelize = require('sequelize');
 
-const storiesDB = new Sequelize('storydb','root','password',{
-    host: 'localhost',
+// const storiesDB = new Sequelize('storydb','root','password',{
+//     host: 'localhost',
+//     dialect: 'mysql'
+// });
+
+const storiesDB = new Sequelize('techplasma','techplasma','KOGoQzl43dFy9Rxj',{
+    host: 'easel2.fulgentcorp.com',
     dialect: 'mysql'
 });
 
@@ -32,14 +37,14 @@ const Stories = storiesDB.define('stories',{
 
 // Get All Stories
 router.get('/',(req,res) => {
-    req.query.limit = parseInt(req.query.limit);
+    if('limit' in req.query){
+        req.query.limit = parseInt(req.query.limit);
+    }
+    req.query.order = [['createdDate', 'DESC']];
     console.log("Query: ",req.query);
 
-    Stories.findAll(req.query).then( storyList => {
-        storyList.forEach(element => {
-            element.tags = element.tags.split(',');
-        })
 
+    Stories.findAll(req.query).then( storyList => {
         res.json(storyList);
     });
 });
@@ -48,10 +53,6 @@ router.get('/',(req,res) => {
 router.get('/:id', (req,res) => {
     Stories.findAll({where:{id:req.params.id}}).then( storyList => {
         if(storyList.length>0){
-            storyList.forEach(element => {
-                element.tags = element.tags.split(',');
-            });
-
             res.json(storyList[0]);
         }else{
             res.status(400).json({msg: `No story found with the id of ${req.params.id}`});
