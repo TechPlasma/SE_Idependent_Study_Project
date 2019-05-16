@@ -12,3 +12,6 @@
     - NodeJS
 - StoryDB
     - MySQL
+
+## Project Setup
+Please seee individual folders for instructions for each sub-project.
