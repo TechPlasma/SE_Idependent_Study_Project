@@ -1,4 +1,4 @@
-# storysite
+# Story Site
 
 ## Project setup
 ```
